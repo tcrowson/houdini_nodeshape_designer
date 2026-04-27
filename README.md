@@ -1,6 +1,12 @@
 # Houdini NodeShape Designer
 
-A browser-based vector design tool for creating custom node shapes for SideFX Houdini. Draw shapes with spline curves, define port positions and flag regions, and export production-ready JSON files — no installation required.
+A browser-based tool for the niche task of creating custom node shapes for SideFX Houdini. Draw shapes with spline curves, define port positions and flag regions, and export shapes as JSON files.
+
+<p align="center">
+  <a href="https://tcrowson.github.io/houdini_nodeshape_designer/">Houdini Nodeshape Designer</a>
+</p>
+<hr>
+
 
 ![Houdini NodeShape Designer](https://raw.githubusercontent.com/tcrowson/houdini_nodeshape_designer/main/preview.png)
 
@@ -115,21 +121,6 @@ Replace `X.Y` with your Houdini version (e.g., `houdini20.5`). Create the `NodeS
 ### Step 2 — Restart Houdini
 
 Houdini loads node shape files at startup. Restart Houdini (or reload the node shape registry) for the new shape to become available.
-
-### Step 3 — Assign the shape to a node or HDA
-
-**For an HDA:**
-1. Open the **Type Properties** dialog for your HDA (right-click the node → Type Properties)
-2. Go to the **Node** tab
-3. Set **Node Shape** to the name of your shape (the filename without `.json`)
-4. Click **Accept**
-
-**For a network-level default** (all nodes of a given type):
-- Use `hou.NodeType.setDefaultShape()` in Python, or set the shape directly in an HDA's node type properties.
-
-### Verifying the Installation
-
-In Houdini's **Network Editor**, right-click any node → **Flags** → **Change Node Shape** — your custom shape should appear in the list.
 
 ---
 
