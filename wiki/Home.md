@@ -6,9 +6,9 @@ A browser-based vector design tool for creating custom node shapes for SideFX Ho
 
 ---
 
-![Houdini NodeShape Designer](https://raw.githubusercontent.com/tcrowson/houdini_nodeshape_designer/main/preview2.png)
+![Houdini NodeShape Designer](https://raw.githubusercontent.com/tcrowson/houdini_nodeshape_designer/main/wiki/img/preview.png)
 
-<!-- TODO: replace preview2.png with a higher-res overview screenshot once available -->
+<!-- TODO: add a higher-res overview screenshot when available -->
 
 ---
 
