@@ -1,7 +1,9 @@
 [
+  "blocky",
   "blunt",
   "brick",
   "capsule",
+  "chunk_down",
   "half_down",
   "half_up",
   "hex",
