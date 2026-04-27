@@ -19,6 +19,7 @@
 |---|---|
 | **F** | Fit view to canvas |
 | **G** | Toggle grid snap |
+| **Alt+G** | Toggle background snap |
 | **Scroll** | Zoom in / out |
 | **Middle-drag** | Pan |
 

@@ -90,6 +90,12 @@ Press **G** to toggle grid snapping on/off. Use the **snap increment dropdown** 
 
 ---
 
+## Background Snap
+
+Press **Alt+G** (or click the background snap button in the toolbar) to toggle background snap on/off. When active, dragging a point will snap it to the nearest vertex on any visible layer. Useful for aligning flag region corners precisely to outline vertices.
+
+---
+
 ## Presets
 
 Click the **grid icon** in the toolbar to open the preset library. Click any thumbnail to load that shape as a starting point.
