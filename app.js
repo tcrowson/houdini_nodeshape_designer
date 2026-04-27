@@ -756,7 +756,7 @@ cv.addEventListener('mousemove',e=>{
 
   if(d.type==='translate'){
     let dx=wx-d.startWx,dy=wy-d.startWy;
-    if(S.snap.on&&d.origPts.length){const f=d.origPts[0],[snx,sny]=snapXY(f.x+dx,f.y+dy);dx=snx-f.x;dy=sny-f.y;}
+    if((S.snap.on||S.snap.pts)&&d.origPts.length){const f=d.origPts[0],[snx,sny]=snapXY(f.x+dx,f.y+dy);dx=snx-f.x;dy=sny-f.y;}
     for(const op of d.origPts){const p=getPt(op);if(!p)continue;p.x=r4(op.x+dx);p.y=r4(op.y+dy);}
 
   }else if(d.type==='handle'){
