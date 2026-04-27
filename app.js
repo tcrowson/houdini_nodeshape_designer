@@ -18,15 +18,18 @@ const CW=()=>cv.width,CH=()=>cv.height;
 function w2s(wx,wy){return[CW()/2+(wx-S.cam.x)*S.cam.z, CH()/2-(wy-S.cam.y)*S.cam.z];}
 function s2w(sx,sy){return[S.cam.x+(sx-CW()/2)/S.cam.z, S.cam.y-(sy-CH()/2)/S.cam.z];}
 const r4=v=>Math.round(v*1e4)/1e4;
-function snapXY(wx,wy){
+function snapXY(wx,wy,excludePts){
   let rx=wx,ry=wy;
   if(S.snap.on){const i=S.snap.inc;rx=Math.round(wx/i)*i;ry=Math.round(wy/i)*i;}
   if(S.snap.pts){
     const thresh=10/S.cam.z;
     let best=null,bestD=thresh;
     for(const ly of S.layers){
-      if(!ly.visible||ly.id===S.activeId)continue;
-      for(const p of(ly.pts||[])){const d=Math.hypot(p.x-wx,p.y-wy);if(d<bestD){bestD=d;best=p;}}
+      if(!ly.visible)continue;
+      (ly.pts||[]).forEach((p,i)=>{
+        if(excludePts&&excludePts.some(s=>s.lid===ly.id&&s.idx===i))return;
+        const d=Math.hypot(p.x-wx,p.y-wy);if(d<bestD){bestD=d;best=p;}
+      });
     }
     if(best){rx=best.x;ry=best.y;}
   }
@@ -756,7 +759,7 @@ cv.addEventListener('mousemove',e=>{
 
   if(d.type==='translate'){
     let dx=wx-d.startWx,dy=wy-d.startWy;
-    if(S.snap.on&&d.origPts.length){const f=d.origPts[0],[snx,sny]=snapXY(f.x+dx,f.y+dy);dx=snx-f.x;dy=sny-f.y;}
+    if((S.snap.on||S.snap.pts)&&d.origPts.length){const f=d.origPts[0],[snx,sny]=snapXY(f.x+dx,f.y+dy,d.origPts);dx=snx-f.x;dy=sny-f.y;}
     for(const op of d.origPts){const p=getPt(op);if(!p)continue;p.x=r4(op.x+dx);p.y=r4(op.y+dy);}
 
   }else if(d.type==='handle'){

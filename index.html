@@ -40,7 +40,7 @@
   <div class="tb-sep"></div>
   <button class="tb-btn" onclick="fitView()" title="Fit view to canvas (F)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="5,2 2,2 2,5"/><polyline points="11,2 14,2 14,5"/><polyline points="14,11 14,14 11,14"/><polyline points="2,11 2,14 5,14"/></svg><span class="tb-key">F</span></button>
   <div class="tb-sep"></div>
-  <button class="tb-btn" id="tb-ptsnap" onclick="toggleSnapPts()" title="Toggle point snap — snaps to points on other layers (Alt+G)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="8" r="2.5" fill="currentColor" stroke="none"/><circle cx="12" cy="4" r="2.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="6" y1="7" x2="10" y2="5"/><line x1="6" y1="9" x2="10" y2="11"/></svg><span class="tb-key">Alt+G</span></button>
+  <button class="tb-btn" id="tb-ptsnap" onclick="toggleSnapPts()" title="Toggle background snap — snaps to points on any visible layer (Alt+G)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="8" r="2.5" fill="currentColor" stroke="none"/><circle cx="12" cy="4" r="2.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="6" y1="7" x2="10" y2="5"/><line x1="6" y1="9" x2="10" y2="11"/></svg><span class="tb-key">Alt+G</span></button>
   <button class="tb-btn" id="tb-snap" onclick="toggleSnap()" title="Toggle grid snap (G)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5,2 L5,8 A3,3 0 0 0 11,8 L11,2"/><line x1="3" y1="2" x2="7" y2="2" stroke-width="2.5"/><line x1="9" y1="2" x2="13" y2="2" stroke-width="2.5"/></svg><span class="tb-key">G</span></button>
   <select id="snap-inc" onchange="S.snap.inc=parseFloat(this.value);draw()" title="Snap grid increment">
     <option value="0.005">0.005</option><option value="0.010">0.010</option>
@@ -68,7 +68,7 @@
       <b>Ctrl+drag</b> handle = break<br>
       <b>Alt+drag</b> handle = restore<br>
       <b>G</b> grid snap toggle<br>
-      <b>Alt+G</b> point snap<br>
+      <b>Alt+G</b> background snap<br>
       <b>Shift+click</b> multi-sel<br>
       <b>Drag</b> marquee<br>
       <b>Del</b> remove pts<br>
