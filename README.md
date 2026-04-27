@@ -23,7 +23,8 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
 - **Transform gizmo** — scale and rotate multi-point selections with bounding box handles
 - **Mirror & align** — flip or flatten selections horizontally or vertically
 - **Grid snapping** with configurable increment
-- **Preset library** — 16 built-in shapes to start from
+- **Background snap** — snap points to vertices on any visible layer
+- **Preset library** — 17 built-in shapes to start from
 - **Import/export** — load existing `.json` shapes and download new ones
 - **Live preview** — real-time render of how the shape will look in Houdini
 - **JSON output** — formatted export with adjustable bake resolution
@@ -93,6 +94,10 @@ Select the **inputs** or **outputs** layer and add points to place ports. Each p
 ### Grid Snapping
 
 Press **G** to toggle grid snapping on/off. Use the **snap increment dropdown** in the toolbar to change the grid resolution (0.005 – 0.100). Grid dots appear on the canvas when snapping is active and you are zoomed in enough to see them.
+
+### Background Snap
+
+Press **Alt+G** (or click the background snap button in the toolbar) to toggle background snap on/off. When active, dragging a point will snap it to the nearest vertex on any visible layer. Useful for aligning flag region corners precisely to outline vertices.
 
 ### Presets
 
@@ -185,6 +190,7 @@ The exported `.json` follows Houdini's node shape specification. All coordinates
 | **S** | Smooth selected points |
 | **C** | Corner selected points |
 | **G** | Toggle grid snap |
+| **Alt+G** | Toggle background snap |
 | **F** | Fit view to canvas |
 | **Delete / Backspace** | Delete selected points |
 | **Ctrl+Z** | Undo |
