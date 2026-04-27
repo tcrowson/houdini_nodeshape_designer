@@ -855,8 +855,13 @@ document.addEventListener('keydown',e=>{
 function fitView(){const w=document.getElementById('canvas-wrap');S.cam.x=0.5;S.cam.y=0.15;S.cam.z=Math.max(60,Math.min((w.clientWidth-60)/1.0,(w.clientHeight-60)/0.6)*0.88);draw();}
 function resizeCanvas(){const w=document.getElementById('canvas-wrap');cv.width=w.clientWidth;cv.height=w.clientHeight;}
 
-// INIT — default to rect preset
-loadJSON(JSON.parse(JSON.stringify(PRESETS['blunt'])));
-document.getElementById('name-in').value='myshape';
-resizeCanvas();fitView();
+// INIT
+async function init(){
+  const names=await fetch('index.json').then(r=>r.json());
+  await Promise.all(names.map(n=>fetch(`presets/${n}.json`).then(r=>r.json()).then(d=>{PRESETS[n]=d;})));
+  loadJSON(JSON.parse(JSON.stringify(PRESETS['blunt'])));
+  document.getElementById('name-in').value='myshape';
+  resizeCanvas();fitView();
+}
+init();
 window.addEventListener('resize',()=>{resizeCanvas();fitView();});
