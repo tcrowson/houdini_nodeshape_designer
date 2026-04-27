@@ -372,6 +372,11 @@ function drawTransformGizmo(){
   ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
   ctx.beginPath();ctx.moveTo(...rh.stem);ctx.lineTo(...rh.tip);ctx.stroke();ctx.setLineDash([]);
   ctx.beginPath();ctx.arc(...rh.tip,6,0,Math.PI*2);ctx.fillStyle='#4a9de0';ctx.strokeStyle='#111';ctx.fill();ctx.stroke();
+  // Centroid translate handle
+  const[ccx,ccy]=w2s((bb.minX+bb.maxX)/2,(bb.minY+bb.maxY)/2);
+  ctx.beginPath();ctx.arc(ccx,ccy,6,0,Math.PI*2);ctx.fillStyle='#e8a020';ctx.strokeStyle='#111';ctx.lineWidth=1.5;ctx.fill();ctx.stroke();
+  ctx.strokeStyle='#111';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(ccx-3,ccy);ctx.lineTo(ccx+3,ccy);ctx.moveTo(ccx,ccy-3);ctx.lineTo(ccx,ccy+3);ctx.stroke();
   ctx.restore();
 }
 
@@ -598,6 +603,9 @@ function hitTransformHandle(sx,sy){
   const bb=selBBox();if(!bb)return null;
   // Rotation first (screen-space, always wins)
   const rh=rotHandleSS(bb);if(Math.hypot(sx-rh.tip[0],sy-rh.tip[1])<12)return{type:'rotate'};
+  // Centroid translate handle
+  const[csx,csy]=w2s((bb.minX+bb.maxX)/2,(bb.minY+bb.maxY)/2);
+  if(Math.hypot(sx-csx,sy-csy)<10)return{type:'translate'};
   for(const h of gizmoHandles(bb)){const[hsx,hsy]=w2s(h.wx,h.wy);if(Math.hypot(sx-hsx,sy-hsy)<HANDLE_HIT_R)return h;}
   return null;
 }
@@ -677,6 +685,7 @@ cv.addEventListener('mousedown',e=>{
   if(th){
     const bb=selBBox(),origPts=snapshotSel();pushUndo();
     if(th.type==='scale'){S.drag={type:'scale',handleId:th.id,anchor:th.anchor,axis:th.axis,origBBox:{...bb},origPts};}
+    else if(th.type==='translate'){S.drag={type:'translate',startWx:wx,startWy:wy,origPts};}
     else{const cx=(bb.minX+bb.maxX)/2,cy=(bb.minY+bb.maxY)/2;S.drag={type:'rotate',centroid:{x:cx,y:cy},startAngle:Math.atan2(wy-cy,wx-cx),origPts};}
     draw();return;
   }
