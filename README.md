@@ -8,7 +8,7 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
 <hr>
 
 
-![Houdini NodeShape Designer](https://raw.githubusercontent.com/tcrowson/houdini_nodeshape_designer/main/preview.png)
+![Houdini NodeShape Designer](https://raw.githubusercontent.com/tcrowson/houdini_nodeshape_designer/main/preview2.png)
 
 ---
 
