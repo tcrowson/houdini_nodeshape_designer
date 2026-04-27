@@ -1,5 +1,4 @@
 'use strict';
-const PRESETS={};
 // STATE
 const S={layers:[],activeId:'outline',tool:'select',selSet:[],drag:null,pan:null,
   cam:{x:0.5,y:0.15,z:400},snap:{on:false,inc:0.025}};
@@ -856,12 +855,7 @@ function fitView(){const w=document.getElementById('canvas-wrap');S.cam.x=0.5;S.
 function resizeCanvas(){const w=document.getElementById('canvas-wrap');cv.width=w.clientWidth;cv.height=w.clientHeight;}
 
 // INIT
-async function init(){
-  const names=await fetch('index.json').then(r=>r.json());
-  await Promise.all(names.map(n=>fetch(`presets/${n}.json`).then(r=>r.json()).then(d=>{PRESETS[n]=d;})));
-  loadJSON(JSON.parse(JSON.stringify(PRESETS['blunt'])));
-  document.getElementById('name-in').value='myshape';
-  resizeCanvas();fitView();
-}
-init();
+loadJSON(JSON.parse(JSON.stringify(PRESETS['blunt'])));
+document.getElementById('name-in').value='myshape';
+resizeCanvas();fitView();
 window.addEventListener('resize',()=>{resizeCanvas();fitView();});
