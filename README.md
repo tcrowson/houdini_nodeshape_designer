@@ -6,12 +6,12 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
   <a href="https://tcrowson.github.io/houdini_nodeshape_designer/">Houdini Nodeshape Designer</a>
 </p>
 <hr>
-
-![Houdini NodeShape Designer](/wiki/img/preview.png)
-
 <p align="center">
   <i>yes this is absolute overkill for lowly node shapes</i>
 </p>
+
+![Houdini NodeShape Designer](/wiki/img/preview.png)
+
 
 ---
 
