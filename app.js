@@ -478,7 +478,7 @@ function buildJSON(){
 function refreshJSON(){document.getElementById('json-out').value=JSON.stringify(buildJSON(),null,2);}
 function copyJSON(){navigator.clipboard.writeText(JSON.stringify(buildJSON(),null,2)).then(()=>{const b=document.querySelector('.act-btn');b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1600);});}
 function dlJSON(){const name=document.getElementById('name-in').value||'myshape';const blob=new Blob([JSON.stringify(buildJSON(),null,2)],{type:'application/json'});Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:name+'.json'}).click();}
-function importFile(e){const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{loadJSON(JSON.parse(ev.target.result));}catch(err){alert('JSON parse error: '+err.message);}};r.readAsText(file);e.target.value='';}
+function importFile(e){const file=e.target.files[0];if(!file)return;if(!confirm('Replace current shape with "'+file.name+'"?\nThis cannot be undone.'))return;const r=new FileReader();r.onload=ev=>{try{loadJSON(JSON.parse(ev.target.result));}catch(err){alert('JSON parse error: '+err.message);}};r.readAsText(file);e.target.value='';}
 function loadJSON(json){
   document.getElementById('name-in').value=json.name||'myshape';
   S.layers=[];flagCount=0;
@@ -588,7 +588,7 @@ function openPresets(){
     const cell=document.createElement('div');cell.className='preset-cell';
     const cv2=document.createElement('canvas');cv2.width=110;cv2.height=64;drawPresetThumb(cv2,data);
     const lbl=document.createElement('div');lbl.className='preset-name';lbl.textContent=name;
-    cell.append(cv2,lbl);cell.onclick=()=>{pushUndo();loadJSON(JSON.parse(JSON.stringify(data)));closePresets();};
+    cell.append(cv2,lbl);cell.onclick=()=>{if(!confirm('Replace current shape with "'+name+'"?\nThis cannot be undone.'))return;pushUndo();loadJSON(JSON.parse(JSON.stringify(data)));closePresets();};
     grid.appendChild(cell);
   }
   document.getElementById('presets-overlay').classList.add('open');
