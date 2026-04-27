@@ -122,7 +122,7 @@ Replace `X.Y` with your Houdini version (e.g., `houdini20.5`). Create the `NodeS
 
 Houdini loads node shape files at startup. Restart Houdini (or reload the node shape registry) for the new shape to become available.
 
-
+---
 
 ## JSON Format Reference
 
