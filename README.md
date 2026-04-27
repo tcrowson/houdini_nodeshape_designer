@@ -7,7 +7,7 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
 </p>
 <hr>
 <p align="center">
-  <i>yes this is absolute overkill for lowly node shapes</i>
+  <i>yes... this is absolute overkill for lowly node shapes</i>
 </p>
 
 ![Houdini NodeShape Designer](/wiki/img/preview.png)
