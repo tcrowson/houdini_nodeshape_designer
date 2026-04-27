@@ -122,22 +122,7 @@ Replace `X.Y` with your Houdini version (e.g., `houdini20.5`). Create the `NodeS
 
 Houdini loads node shape files at startup. Restart Houdini (or reload the node shape registry) for the new shape to become available.
 
-### Step 3 — Assign the shape to a node or HDA
 
-**For an HDA:**
-1. Open the **Type Properties** dialog for your HDA (right-click the node → Type Properties)
-2. Go to the **Node** tab
-3. Set **Node Shape** to the name of your shape (the filename without `.json`)
-4. Click **Accept**
-
-**For a network-level default** (all nodes of a given type):
-- Use `hou.NodeType.setDefaultShape()` in Python, or set the shape directly in an HDA's node type properties.
-
-### Verifying the Installation
-
-In Houdini's **Network Editor**, right-click any node → **Flags** → **Change Node Shape** — your custom shape should appear in the list.
-
----
 
 ## JSON Format Reference
 
