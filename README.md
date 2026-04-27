@@ -2,6 +2,8 @@
 
 A browser-based vector design tool for creating custom node shapes for SideFX Houdini. Draw shapes with spline curves, define port positions and flag regions, and export production-ready JSON files — no installation required.
 
+[Houdini Nodeshape Designer](https://tcrowson.github.io/houdini_nodeshape_designer/)
+
 ![Houdini NodeShape Designer](https://raw.githubusercontent.com/tcrowson/houdini_nodeshape_designer/main/preview.png)
 
 ---
