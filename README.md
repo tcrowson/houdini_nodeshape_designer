@@ -58,7 +58,9 @@ The canvas uses a normalized coordinate system matching Houdini's node shape spe
 | **S** | Smooth | Convert selected points to smooth (curved) |
 | **C** | Corner | Convert selected points to sharp corners |
 
+
 ### Editing Curves
+![Smooth](/wiki/img/smooth.jpg)
 
 Select a single smooth point to reveal its **tangent handles**:
 - **Orange handle** — controls the outgoing curve direction
@@ -67,13 +69,18 @@ Select a single smooth point to reveal its **tangent handles**:
 - **Ctrl+drag** a handle to break symmetry (adjust one side independently)
 - **Alt+drag** a handle to restore symmetry
 
+
+
 ### Transform Gizmo
+![Xform](/wiki/img/xform.jpg)
 
 Select two or more points to activate the transform gizmo:
 - Drag **corner handles** to scale; hold **Shift** for uniform scale; hold **Ctrl+Shift** to scale around the centroid
 - Drag the **rotation handle** (above the top-center) to rotate; hold **Shift** to snap to 15° increments
 
+
 ### Layers
+![Layers](/wiki/img/layers.jpg)
 
 The left panel lists all layers in the shape:
 
@@ -88,18 +95,21 @@ The left panel lists all layers in the shape:
 Click a layer to make it active for editing. Use the **eye icon** to toggle visibility. Add new flag regions with the **+ Add Flag Region** button at the bottom of the panel.
 
 ### Ports (Inputs & Outputs)
-
+![Ports](/wiki/img/inputs.jpg)
 Select the **inputs** or **outputs** layer and add points to place ports. Each port point has an **angle handle** — drag it to set the connection direction (the angle at which wires attach). The default is 90° for inputs (wires enter from below) and 270° for outputs (wires leave upward).
 
 ### Grid Snapping
-
+![GridSnap](/wiki/img/gridsnap.jpg)
 Press **G** to toggle grid snapping on/off. Use the **snap increment dropdown** in the toolbar to change the grid resolution (0.005 – 0.100). Grid dots appear on the canvas when snapping is active and you are zoomed in enough to see them.
 
 ### Background Snap
+![BGSnap](/wiki/img/bgsnap.jpg)
 
 Press **Alt+G** (or click the background snap button in the toolbar) to toggle background snap on/off. When active, dragging a point will snap it to the nearest vertex on any visible layer. Useful for aligning flag region corners precisely to outline vertices.
 
+
 ### Presets
+![Presets](/wiki/img/presets.jpg)
 
 Click the **grid icon** in the toolbar to open the preset library. Click any thumbnail to load that shape as a starting point. The preset loads immediately and replaces the current state (use undo to go back).
 
