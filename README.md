@@ -61,7 +61,7 @@ The canvas uses a normalized coordinate system matching Houdini's node shape spe
 
 ### Editing Curves
 
-<img align="right" width="280" src="wiki/img/smooth.jpg">
+<img align="right" width="400" src="wiki/img/smooth.jpg">
 
 Select a single smooth point to reveal its **tangent handles**:
 - **Orange handle** — controls the outgoing curve direction
@@ -74,7 +74,7 @@ Select a single smooth point to reveal its **tangent handles**:
 
 ### Transform Gizmo
 
-<img align="right" width="340" src="wiki/img/xform.jpg">
+<img align="right" width="400" src="wiki/img/xform.jpg">
 
 Select two or more points to activate the transform gizmo:
 - Drag **corner handles** to scale; hold **Shift** for uniform scale; hold **Ctrl+Shift** to scale around the centroid
@@ -88,13 +88,11 @@ Select two or more points to activate the transform gizmo:
 
 The left panel lists all layers in the shape:
 
-| Layer | Purpose |
-|---|---|
-| **outline** | The main visible boundary of the node |
-| **inputs** | Input port positions and connection angles |
-| **outputs** | Output port positions and connection angles |
-| **icon** | Two corner points defining the icon bounding box |
-| **flag regions** | Custom areas for bypass, display, lock, and other UI indicators |
+- **outline** — the main visible boundary of the node
+- **inputs** — input port positions and connection angles
+- **outputs** — output port positions and connection angles
+- **icon** — two corner points defining the icon bounding box
+- **flag regions** — custom areas for bypass, display, lock, and other UI indicators
 
 Click a layer to make it active for editing. Use the **eye icon** to toggle visibility. Add new flag regions with the **+ Add Flag Region** button at the bottom of the panel.
 
@@ -102,7 +100,7 @@ Click a layer to make it active for editing. Use the **eye icon** to toggle visi
 
 ### Ports (Inputs & Outputs)
 
-<img align="right" width="320" src="wiki/img/inputs.jpg">
+<img align="right" width="400" src="wiki/img/inputs.jpg">
 
 Select the **inputs** or **outputs** layer and add points to place ports. Each port point has an **angle handle** — drag it to set the connection direction (the angle at which wires attach). The default is 90° for inputs (wires enter from below) and 270° for outputs (wires leave upward).
 
@@ -110,7 +108,7 @@ Select the **inputs** or **outputs** layer and add points to place ports. Each p
 
 ### Grid Snapping
 
-<img align="right" width="300" src="wiki/img/gridsnap.jpg">
+<img align="right" width="400" src="wiki/img/gridsnap.jpg">
 
 Press **G** to toggle grid snapping on/off. Use the **snap increment dropdown** in the toolbar to change the grid resolution (0.005 – 0.100). Grid dots appear on the canvas when snapping is active and you are zoomed in enough to see them.
 
@@ -118,7 +116,7 @@ Press **G** to toggle grid snapping on/off. Use the **snap increment dropdown** 
 
 ### Background Snap
 
-<img align="right" width="300" src="wiki/img/bgsnap.jpg">
+<img align="right" width="400" src="wiki/img/bgsnap.jpg">
 
 Press **Alt+G** (or click the background snap button in the toolbar) to toggle background snap on/off. When active, dragging a point will snap it to the nearest vertex on any visible layer. Useful for aligning flag region corners precisely to outline vertices.
 
