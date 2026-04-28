@@ -7,7 +7,7 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
 </p>
 <hr>
 <p align="center">
-  <i>yes... this is absolute overkill for lowly node shapes... but it's fun</i>
+  <i>A superfluous tool no one ever asked for...</i>
 </p>
 
 ![Houdini NodeShape Designer](/wiki/img/preview.png)
@@ -24,7 +24,7 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
 - **Mirror & align** — flip or flatten selections horizontally or vertically
 - **Grid snapping** with configurable increment
 - **Background snap** — snap points to vertices on any visible layer
-- **Preset library** — a few built-in shapes to start from
+- **Preset library** — 17 built-in shapes to start from
 - **Import/export** — load existing `.json` shapes and download new ones
 - **Live preview** — real-time render of how the shape will look in Houdini
 - **JSON output** — formatted export with adjustable bake resolution
@@ -58,7 +58,7 @@ The canvas uses a normalized coordinate system matching Houdini's node shape spe
 | **S** | Smooth | Convert selected points to smooth (curved) |
 | **C** | Corner | Convert selected points to sharp corners |
 
-
+---
 ### Editing Curves
 
 <img align="right" width="350" src="wiki/img/smooth.jpg">
@@ -92,9 +92,9 @@ The left panel lists all layers in the shape:
 - **inputs** — input port positions and connection angles
 - **outputs** — output port positions and connection angles
 - **icon** — two corner points defining the icon bounding box
-- **flag regions** — custom areas for bypass, display, lock, and other UI indicators
-
-Click a layer to make it active for editing. Use the **eye icon** to toggle visibility. Add new flag regions with the **+ Add Flag Region** button at the bottom of the panel.
+- **flag regions** — custom areas for bypass, display, lock, and other UI indicators 
+- Click a layer to make it active for editing. Use the **eye icon** to toggle visibility. 
+- Add new flag regions with the **+ Add Flag Region** button at the bottom of the panel.
 
 <br clear="right">
 
@@ -130,7 +130,8 @@ Click the **grid icon** in the toolbar to open the preset library. Click any thu
 
 <br clear="right">
 
-### Exporting Your Shape
+---
+## Exporting Your Shape
 
 1. **Name your shape** using the text field in the toolbar. This becomes the filename and the identifier Houdini uses.
 2. Adjust **Bake Resolution** in the right panel (4–64). Higher values produce smoother curves at the cost of a larger file. A value of 6–10 is usually sufficient.
