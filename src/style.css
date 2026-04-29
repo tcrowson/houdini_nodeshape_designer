@@ -135,7 +135,7 @@ html, body {
 /* ─── Left Panel (Layers) ─────────────────────────────────────────────────── */
 
 #left {
-  width: 162px;
+  width: 244px;
   flex-shrink: 0;
   background: var(--panel);
   border-right: 1px solid var(--border);
@@ -222,6 +222,63 @@ html, body {
   flex-shrink: 0;
 }
 .add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+#ref-layer { border-top: 1px solid var(--border); }
+.ref-ly {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 8px; cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,.025);
+}
+.ref-ly:hover { background: rgba(255,255,255,.04); }
+.ref-arrow { font-size: 8px; color: var(--dim); flex-shrink: 0; width: 8px; }
+.ref-import-btn {
+  width: 22px; height: 20px; padding: 0; border: 1px solid #444;
+  background: transparent; color: var(--dim); cursor: pointer;
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ref-import-btn:hover { border-color: var(--accent); color: var(--accent); }
+#ref-controls { padding: 6px 8px 4px; }
+#ref-controls label { cursor: help; user-select: none; text-align: right; }
+.ref-ctrl-row {
+  display: grid; align-items: center; gap: 4px;
+  margin-bottom: 5px; font-size: 11px; color: var(--dim);
+}
+.ref-ctrl-row.slider { grid-template-columns: 56px 1fr 59px; }
+.ref-ctrl-row.flip { grid-template-columns: 56px auto auto; }
+.ref-flip-btn {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: #1e1e1e; border: 1px solid #3a3a3a; color: var(--dim);
+  font-family: inherit; font-size: 11px; padding: 2px 7px;
+  border-radius: 2px; cursor: pointer; white-space: nowrap;
+}
+.ref-flip-btn:hover { border-color: var(--accent); color: var(--accent); }
+.ref-flip-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(100,160,255,.10); }
+#ref-controls input[type=number] {
+  background: #111; border: 1px solid #444; color: var(--text);
+  font-family: inherit; font-size: 11px; padding: 2px 4px;
+  border-radius: 2px; outline: none; min-width: 0;
+}
+#ref-controls input[type=number]:focus { border-color: var(--accent); }
+#ref-controls input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  background: transparent; cursor: pointer; min-width: 0; height: 16px;
+}
+#ref-controls input[type=range]::-webkit-slider-runnable-track {
+  height: 2px; background: #3a3a3a; border-radius: 1px;
+}
+#ref-controls input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 4px; height: 14px; margin-top: -6px;
+  background: var(--accent); border-radius: 1px; cursor: pointer;
+}
+#ref-controls input[type=range]::-moz-range-track {
+  height: 2px; background: #3a3a3a; border-radius: 1px;
+}
+#ref-controls input[type=range]::-moz-range-thumb {
+  border: none; width: 4px; height: 14px;
+  background: var(--accent); border-radius: 1px; cursor: pointer;
+}
 
 #shortcuts {
   padding: 8px 10px;
