@@ -91,8 +91,8 @@
           </div>
           <div class="ref-ctrl-row slider">
             <label onmousedown="resetRefParam(event,'opacity')" title="Ctrl+MMB: reset to default">Opacity</label>
-            <input type="range" id="ref-opacity-r" min="0.05" max="1" step="0.05" value="0.2" oninput="S.ref.opacity=+this.value;document.getElementById('ref-opacity-n').value=(+this.value).toFixed(2);draw()">
-            <input type="number" id="ref-opacity-n" min="0.05" max="1" step="0.05" value="0.20" oninput="S.ref.opacity=Math.max(0.05,Math.min(1,+this.value));document.getElementById('ref-opacity-r').value=this.value;draw()">
+            <input type="range" id="ref-opacity-r" min="0.01" max="1" step="0.01" value="0.1" oninput="S.ref.opacity=+this.value;document.getElementById('ref-opacity-n').value=(+this.value).toFixed(2);draw()">
+            <input type="number" id="ref-opacity-n" min="0.01" max="1" step="0.05" value="0.10" oninput="S.ref.opacity=Math.max(0.01,Math.min(1,+this.value));document.getElementById('ref-opacity-r').value=this.value;draw()">
           </div>
         </div>
       </div>

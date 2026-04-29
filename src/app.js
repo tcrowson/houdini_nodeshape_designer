@@ -5,7 +5,7 @@ const VERSION='1.0.0';
 // STATE
 const S={layers:[],activeId:'outline',tool:'select',selSet:[],drag:null,pan:null,
   cam:{x:0.5,y:0.15,z:400},snap:{on:false,inc:0.025,pts:false},
-  ref:{visible:true,img:null,x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.2,open:false}};
+  ref:{visible:true,img:null,x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.10,open:false}};
 const U={stack:[],redo:[],MAX:60};
 const FLAG_COLS=['#e8c030','#e04020','#e050a0','#30b8e8','#8040c0','#50b850'];
 let flagCount=0;
@@ -306,7 +306,7 @@ function toggleRefLayer(){
   document.getElementById('ref-arrow').textContent=S.ref.open?'▼':'▶';
 }
 
-const REF_DEFAULTS={x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.2};
+const REF_DEFAULTS={x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.10};
 function resetRefParam(e,param){
   if(!e.ctrlKey||e.button!==1)return;
   e.preventDefault();
