@@ -132,7 +132,7 @@ Click the **grid icon** in the toolbar to open the preset library. Click any thu
 
 ### Reference Image
 
-<img align="right" width="350" src="wiki/img/referenceimg.jpg">
+<img align="right" width="350" src="wiki/img/reference.jpg">
 
 Load a reference image to trace over or align your shape against. Click the **folder icon** next to the Reference Image layer to load any image file. Toggle visibility with the **eye icon**.
 
