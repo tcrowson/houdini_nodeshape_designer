@@ -135,7 +135,7 @@ html, body {
 /* ─── Left Panel (Layers) ─────────────────────────────────────────────────── */
 
 #left {
-  width: 195px;
+  width: 244px;
   flex-shrink: 0;
   background: var(--panel);
   border-right: 1px solid var(--border);
@@ -239,11 +239,11 @@ html, body {
 }
 .ref-import-btn:hover { border-color: var(--accent); color: var(--accent); }
 #ref-controls { padding: 6px 8px 4px; }
+#ref-controls label { cursor: help; user-select: none; }
 .ref-ctrl-row {
   display: grid; align-items: center; gap: 4px;
   margin-bottom: 5px; font-size: 11px; color: var(--dim);
 }
-.ref-ctrl-row.xy     { grid-template-columns: 12px 1fr 12px 1fr; }
 .ref-ctrl-row.slider { grid-template-columns: max-content 1fr 42px; }
 #ref-controls input[type=number] {
   background: #111; border: 1px solid #444; color: var(--text);
@@ -251,7 +251,25 @@ html, body {
   border-radius: 2px; outline: none; min-width: 0;
 }
 #ref-controls input[type=number]:focus { border-color: var(--accent); }
-#ref-controls input[type=range] { accent-color: var(--accent); cursor: pointer; min-width: 0; }
+#ref-controls input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  background: transparent; cursor: pointer; min-width: 0; height: 16px;
+}
+#ref-controls input[type=range]::-webkit-slider-runnable-track {
+  height: 2px; background: #3a3a3a; border-radius: 1px;
+}
+#ref-controls input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 4px; height: 14px; margin-top: -6px;
+  background: var(--accent); border-radius: 1px; cursor: pointer;
+}
+#ref-controls input[type=range]::-moz-range-track {
+  height: 2px; background: #3a3a3a; border-radius: 1px;
+}
+#ref-controls input[type=range]::-moz-range-thumb {
+  border: none; width: 4px; height: 14px;
+  background: var(--accent); border-radius: 1px; cursor: pointer;
+}
 
 #shortcuts {
   padding: 8px 10px;
