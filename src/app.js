@@ -5,7 +5,8 @@ const VERSION='1.0.0';
 // STATE
 const S={layers:[],activeId:'outline',tool:'select',selSet:[],drag:null,pan:null,
   cam:{x:0.5,y:0.15,z:400},snap:{on:false,inc:0.025,pts:false},
-  ref:{visible:true,img:null,x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.10,open:false}};
+  ref:{visible:true,img:null,x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.10,open:false},
+  clipboard:null};
 const U={stack:[],redo:[],MAX:60};
 const FLAG_COLS=['#e8c030','#e04020','#e050a0','#30b8e8','#8040c0','#50b850'];
 let flagCount=0;
@@ -44,6 +45,26 @@ function pushUndo(){U.stack.push({layers:JSON.stringify(S.layers),activeId:S.act
 function applyUndoState(st){S.layers=JSON.parse(st.layers);S.activeId=st.activeId;if(!getLayer(S.activeId))S.activeId='outline';S.selSet=[];}
 function undo(){if(!U.stack.length)return;U.redo.push({layers:JSON.stringify(S.layers),activeId:S.activeId});applyUndoState(U.stack.pop());draw();}
 function redo(){if(!U.redo.length)return;U.stack.push({layers:JSON.stringify(S.layers),activeId:S.activeId});applyUndoState(U.redo.pop());draw();}
+
+function copyPts(){
+  if(!S.selSet.length)return;
+  const ly=activeLy();if(!ly)return;
+  const sorted=[...S.selSet].filter(s=>s.lid===ly.id).sort((a,b)=>a.idx-b.idx);
+  if(!sorted.length)return;
+  S.clipboard={layerType:ly.type,pts:JSON.parse(JSON.stringify(sorted.map(s=>ly.pts[s.idx])))};
+}
+function pastePts(){
+  if(!S.clipboard)return;
+  const ly=activeLy();if(!ly)return;
+  if(ly.type!==S.clipboard.layerType){alert('Cannot paste: incompatible layer type.');return;}
+  if(ly.pts.length&&!confirm('Pasting into a non-empty layer may disrupt point order. Continue?'))return;
+  pushUndo();
+  const pasted=JSON.parse(JSON.stringify(S.clipboard.pts));
+  const startIdx=ly.pts.length;
+  ly.pts.push(...pasted);
+  S.selSet=pasted.map((_,i)=>({lid:ly.id,idx:startIdx+i}));
+  draw();
+}
 
 // SPLINE
 function getTangent(pts,i,a=0.5){const n=pts.length,p0=pts[(i-1+n)%n],p2=pts[(i+1)%n];return{x:a*(p2.x-p0.x),y:a*(p2.y-p0.y)};}
@@ -913,6 +934,8 @@ document.addEventListener('keydown',e=>{
   if(e.ctrlKey||e.metaKey){
     if(e.key==='z'){e.preventDefault();undo();return;}
     if(e.key==='y'||(e.key==='Z'&&e.shiftKey)){e.preventDefault();redo();return;}
+    if(e.key==='c'){e.preventDefault();copyPts();return;}
+    if(e.key==='v'){e.preventDefault();pastePts();return;}
   }
   if(e.altKey&&e.key.toLowerCase()==='g'){e.preventDefault();toggleSnapPts();return;}
   switch(e.key.toLowerCase()){
