@@ -54,11 +54,36 @@
   <button class="tb-btn" onclick="alignV()" title="Align selected points to average X (flatten to vertical line)">&#8214;V</button>
   <div class="tb-spacer"></div>
   <input type="file" id="import-file" accept=".json" style="display:none" onchange="importFile(event)">
+  <input type="file" id="import-ref-image" accept="image/*" style="display:none" onchange="importRefImage(event)">
 </div>
 <div id="main">
   <div id="left">
     <div class="pane-head">Layers <span style="float:right;font-size:9px;text-transform:none;letter-spacing:0;color:var(--dim)">(display only)</span></div>
     <div id="layer-list"></div>
+    <div id="ref-layer">
+      <div class="ref-ly" onclick="toggleRefLayer()">
+        <span class="ref-arrow" id="ref-arrow">▶</span>
+        <div class="ly-vis on" id="ref-vis" onclick="event.stopPropagation();S.ref.visible=!S.ref.visible;draw()" title="Toggle visibility"></div>
+        <div class="ly-dot" style="background:#666;flex-shrink:0"></div>
+        <span class="ly-name">BG Image</span>
+        <button class="ref-import-btn" onclick="event.stopPropagation();document.getElementById('import-ref-image').click()" title="Load reference image">+img</button>
+      </div>
+      <div id="ref-controls" style="display:none">
+        <div class="ref-ctrl-row xy">
+          <label>X</label><input type="number" id="ref-x" value="0.5" step="0.01" oninput="S.ref.x=+this.value;draw()">
+          <label>Y</label><input type="number" id="ref-y" value="0.15" step="0.01" oninput="S.ref.y=+this.value;draw()">
+        </div>
+        <div class="ref-ctrl-row single">
+          <label>Scale</label><input type="number" id="ref-scale" value="1" min="0.01" step="0.05" oninput="S.ref.scale=Math.max(0.01,+this.value);draw()">
+        </div>
+        <div class="ref-ctrl-row single">
+          <label>Rotation</label><input type="number" id="ref-rot" value="0" step="1" oninput="S.ref.rotation=+this.value;draw()">
+        </div>
+        <div class="ref-ctrl-row single">
+          <label>Opacity</label><input type="range" id="ref-opacity" value="0.5" min="0.05" max="1" step="0.05" style="margin-top:1px" oninput="S.ref.opacity=+this.value;draw()">
+        </div>
+      </div>
+    </div>
     <button class="add-btn" onclick="addFlag()" title="Add a new flag region layer (e.g. bypass, display, lock)">+ Add Flag Region</button>
     <div id="shortcuts">
       <b>V/A/D</b> tool mode<br>
@@ -78,6 +103,7 @@
       Scale: <b>Shift</b>=uniform<br>
       <b>Ctrl+Sh</b>=∿centroid<br>
       Rotate: <b>Shift</b>=15deg<br>
+      Angle: <b>Shift</b>=15deg<br>
       <span style="color:#ffcc44">&#11044;</span> out
       <span style="color:#ff8844">&#11044;</span> in
       <span style="color:#909090">&#11044;</span> auto
@@ -118,6 +144,7 @@
     <div id="about-panel">
       <button id="about-close" onclick="document.getElementById('about-overlay')?.classList.remove('open')" title="Close">&#10005;</button>
       <h2>Houdini NodeShape Designer</h2>
+      <p id="about-version" style="color:var(--dim);font-size:11px;margin-top:2px;"></p>
       <p>A browser-based tool for authoring custom node shapes for SideFX Houdini.</p>
       <p style="margin-top:10px;">By <strong style="color:var(--text)">Tim Crowson</strong><br>
       with <strong style="color:var(--text)">Claude AI</strong></p>
