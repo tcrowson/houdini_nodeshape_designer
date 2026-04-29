@@ -24,6 +24,7 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
 - **Mirror & align** — flip or flatten selections horizontally or vertically
 - **Grid snapping** with configurable increment
 - **Background snap** — snap points to vertices on any visible layer
+- **Reference Image** - load an image to use as reference
 - **Preset library** — 17 built-in shapes to start from
 - **Import/export** — load existing `.json` shapes and download new ones
 - **Live preview** — real-time render of how the shape will look in Houdini
@@ -142,9 +143,9 @@ Expand the layer to reveal controls:
 - **Scale** — resize the image (0.1–2×)
 - **Rotation** — rotate the image (–180° to 180°)
 - **Opacity** — adjust transparency (default 0.10)
-- **Flip H / V** — mirror the image horizontally or vertically
-
-The reference image is purely a visual guide and has no effect on the exported shape.
+- **Flip H / V** — mirror the image horizontally or vertically 
+- Reset controls by Ctrl-MMB clicking the labels.
+- This reference image is purely a visual guide and has no effect on the exported shape.
 
 <br clear="right">
 
