@@ -239,12 +239,12 @@ html, body {
 }
 .ref-import-btn:hover { border-color: var(--accent); color: var(--accent); }
 #ref-controls { padding: 6px 8px 4px; }
-#ref-controls label { cursor: help; user-select: none; }
+#ref-controls label { cursor: help; user-select: none; text-align: right; }
 .ref-ctrl-row {
   display: grid; align-items: center; gap: 4px;
   margin-bottom: 5px; font-size: 11px; color: var(--dim);
 }
-.ref-ctrl-row.slider { grid-template-columns: max-content 1fr 59px; }
+.ref-ctrl-row.slider { grid-template-columns: 56px 1fr 59px; }
 #ref-controls input[type=number] {
   background: #111; border: 1px solid #444; color: var(--text);
   font-family: inherit; font-size: 11px; padding: 2px 4px;
