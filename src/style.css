@@ -239,6 +239,7 @@ html, body {
 }
 .ref-import-btn:hover { border-color: var(--accent); color: var(--accent); }
 #ref-controls { padding: 6px 8px 4px; }
+#ref-controls label { cursor: help; user-select: none; }
 .ref-ctrl-row {
   display: grid; align-items: center; gap: 4px;
   margin-bottom: 5px; font-size: 11px; color: var(--dim);

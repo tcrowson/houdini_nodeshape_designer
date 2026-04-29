@@ -306,6 +306,18 @@ function toggleRefLayer(){
   document.getElementById('ref-arrow').textContent=S.ref.open?'▼':'▶';
 }
 
+const REF_DEFAULTS={x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.2};
+function resetRefParam(e,param){
+  if(!e.ctrlKey||e.button!==1)return;
+  e.preventDefault();
+  const val=REF_DEFAULTS[param];S.ref[param]=val;
+  const fmt=v=>typeof v==='number'&&param!=='rotation'?v.toFixed(2):String(v);
+  const r=document.getElementById('ref-'+param+'-r');
+  const n=document.getElementById('ref-'+param+'-n');
+  if(r)r.value=val;if(n)n.value=fmt(val);
+  draw();
+}
+
 function importRefImage(e){
   const file=e.target.files[0];if(!file)return;
   const url=URL.createObjectURL(file);
