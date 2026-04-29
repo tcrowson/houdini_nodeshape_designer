@@ -130,6 +130,24 @@ Click the **grid icon** in the toolbar to open the preset library. Click any thu
 
 <br clear="right">
 
+### Reference Image
+
+<img align="right" width="350" src="wiki/img/referenceimg.jpg">
+
+Load a reference image to trace over or align your shape against. Click the **folder icon** next to the Reference Image layer to load any image file. Toggle visibility with the **eye icon**.
+
+Expand the layer to reveal controls:
+
+- **X / Y Offset** — reposition the image on the canvas
+- **Scale** — resize the image (0.1–2×)
+- **Rotation** — rotate the image (–180° to 180°)
+- **Opacity** — adjust transparency (default 0.10)
+- **Flip H / V** — mirror the image horizontally or vertically
+
+The reference image is purely a visual guide and has no effect on the exported shape.
+
+<br clear="right">
+
 ---
 ## Exporting Your Shape
 
