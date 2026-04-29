@@ -5,7 +5,7 @@ const VERSION='1.0.0';
 // STATE
 const S={layers:[],activeId:'outline',tool:'select',selSet:[],drag:null,pan:null,
   cam:{x:0.5,y:0.15,z:400},snap:{on:false,inc:0.025,pts:false},
-  ref:{visible:true,img:null,x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.10,open:false},
+  ref:{visible:true,img:null,x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.10,flipH:false,flipV:false,open:false},
   clipboard:null};
 const U={stack:[],redo:[],MAX:60};
 const FLAG_COLS=['#e8c030','#e04020','#e050a0','#30b8e8','#8040c0','#50b850'];
@@ -311,7 +311,9 @@ function drawRefImage(){
   const pw=r.scale*S.cam.z;
   const ph=pw*(r.img.height/r.img.width);
   ctx.save();ctx.globalAlpha=r.opacity;
-  ctx.translate(cx,cy);if(r.rotation)ctx.rotate(r.rotation*Math.PI/180);
+  ctx.translate(cx,cy);
+  if(r.rotation)ctx.rotate(r.rotation*Math.PI/180);
+  ctx.scale(r.flipH?-1:1,r.flipV?-1:1);
   ctx.drawImage(r.img,-pw/2,-ph/2,pw,ph);
   ctx.restore();
 }
@@ -319,7 +321,12 @@ function drawRefImage(){
 function updateRefLayerUI(){
   const vis=document.getElementById('ref-vis');
   if(vis)vis.className='ly-vis'+(S.ref.visible?' on':'');
+  const fh=document.getElementById('ref-flipH-btn');
+  const fv=document.getElementById('ref-flipV-btn');
+  if(fh)fh.classList.toggle('active',S.ref.flipH);
+  if(fv)fv.classList.toggle('active',S.ref.flipV);
 }
+function toggleRefFlip(axis){S.ref[axis]=!S.ref[axis];draw();}
 
 function toggleRefLayer(){
   S.ref.open=!S.ref.open;
