@@ -542,7 +542,9 @@ function loadJSON(json){
 
 // LAYER UI
 function buildLayerUI(){
-  const list=document.getElementById('layer-list');list.innerHTML='';
+  const list=document.getElementById('layer-list');
+  const refEl=document.getElementById('ref-layer');
+  [...list.children].forEach(el=>{if(el.id!=='ref-layer')el.remove();});
   for(const ly of S.layers){
     const div=document.createElement('div');div.className='ly'+(ly.id===S.activeId?' active':'');
     div.onclick=e=>{if(e.target.classList.contains('ly-del')||e.target.classList.contains('ly-vis'))return;S.activeId=ly.id;S.selSet=[];draw();};
@@ -556,7 +558,7 @@ function buildLayerUI(){
       del.onclick=e=>{e.stopPropagation();pushUndo();S.layers=S.layers.filter(l=>l.id!==ly.id);if(S.activeId===ly.id)S.activeId='outline';draw();};
       div.append(del);
     }
-    list.appendChild(div);
+    list.insertBefore(div,refEl);
   }
 }
 

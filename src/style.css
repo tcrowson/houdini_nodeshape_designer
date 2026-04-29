@@ -223,7 +223,7 @@ html, body {
 }
 .add-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-#ref-layer { border-top: 1px solid var(--border); flex-shrink: 0; }
+#ref-layer { border-top: 1px solid var(--border); }
 .ref-ly {
   display: flex; align-items: center; gap: 5px;
   padding: 6px 8px; cursor: pointer;
@@ -232,9 +232,10 @@ html, body {
 .ref-ly:hover { background: rgba(255,255,255,.04); }
 .ref-arrow { font-size: 8px; color: var(--dim); flex-shrink: 0; width: 8px; }
 .ref-import-btn {
-  font-size: 10px; padding: 1px 5px; border: 1px solid #444;
+  width: 22px; height: 20px; padding: 0; border: 1px solid #444;
   background: transparent; color: var(--dim); cursor: pointer;
-  border-radius: 2px; font-family: inherit; flex-shrink: 0;
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
 .ref-import-btn:hover { border-color: var(--accent); color: var(--accent); }
 #ref-controls { padding: 6px 8px 4px; }
@@ -242,10 +243,15 @@ html, body {
   display: grid; align-items: center; gap: 4px;
   margin-bottom: 5px; font-size: 11px; color: var(--dim);
 }
-.ref-ctrl-row.xy { grid-template-columns: 14px 1fr 14px 1fr; }
-.ref-ctrl-row.single { grid-template-columns: 46px 1fr; }
-.ref-ctrl-row input[type=number] { min-width: 0; }
-.ref-ctrl-row input[type=range] { min-width: 0; }
+.ref-ctrl-row.xy     { grid-template-columns: 12px 1fr 12px 1fr; }
+.ref-ctrl-row.slider { grid-template-columns: max-content 1fr 42px; }
+#ref-controls input[type=number] {
+  background: #111; border: 1px solid #444; color: var(--text);
+  font-family: inherit; font-size: 11px; padding: 2px 4px;
+  border-radius: 2px; outline: none; min-width: 0;
+}
+#ref-controls input[type=number]:focus { border-color: var(--accent); }
+#ref-controls input[type=range] { accent-color: var(--accent); cursor: pointer; min-width: 0; }
 
 #shortcuts {
   padding: 8px 10px;
