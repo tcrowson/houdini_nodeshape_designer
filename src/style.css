@@ -245,6 +245,15 @@ html, body {
   margin-bottom: 5px; font-size: 11px; color: var(--dim);
 }
 .ref-ctrl-row.slider { grid-template-columns: 56px 1fr 59px; }
+.ref-ctrl-row.flip { grid-template-columns: 56px auto auto; }
+.ref-flip-btn {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: #1e1e1e; border: 1px solid #3a3a3a; color: var(--dim);
+  font-family: inherit; font-size: 11px; padding: 2px 7px;
+  border-radius: 2px; cursor: pointer; white-space: nowrap;
+}
+.ref-flip-btn:hover { border-color: var(--accent); color: var(--accent); }
+.ref-flip-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(100,160,255,.10); }
 #ref-controls input[type=number] {
   background: #111; border: 1px solid #444; color: var(--text);
   font-family: inherit; font-size: 11px; padding: 2px 4px;
