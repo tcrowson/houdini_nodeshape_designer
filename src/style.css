@@ -135,7 +135,7 @@ html, body {
 /* ─── Left Panel (Layers) ─────────────────────────────────────────────────── */
 
 #left {
-  width: 162px;
+  width: 195px;
   flex-shrink: 0;
   background: var(--panel);
   border-right: 1px solid var(--border);
@@ -222,6 +222,30 @@ html, body {
   flex-shrink: 0;
 }
 .add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+#ref-layer { border-top: 1px solid var(--border); flex-shrink: 0; }
+.ref-ly {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 8px; cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,.025);
+}
+.ref-ly:hover { background: rgba(255,255,255,.04); }
+.ref-arrow { font-size: 8px; color: var(--dim); flex-shrink: 0; width: 8px; }
+.ref-import-btn {
+  font-size: 10px; padding: 1px 5px; border: 1px solid #444;
+  background: transparent; color: var(--dim); cursor: pointer;
+  border-radius: 2px; font-family: inherit; flex-shrink: 0;
+}
+.ref-import-btn:hover { border-color: var(--accent); color: var(--accent); }
+#ref-controls { padding: 6px 8px 4px; }
+.ref-ctrl-row {
+  display: grid; align-items: center; gap: 4px;
+  margin-bottom: 5px; font-size: 11px; color: var(--dim);
+}
+.ref-ctrl-row.xy { grid-template-columns: 14px 1fr 14px 1fr; }
+.ref-ctrl-row.single { grid-template-columns: 46px 1fr; }
+.ref-ctrl-row input[type=number] { min-width: 0; }
+.ref-ctrl-row input[type=range] { min-width: 0; }
 
 #shortcuts {
   padding: 8px 10px;

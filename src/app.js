@@ -4,7 +4,8 @@ const VERSION='1.0.0';
 
 // STATE
 const S={layers:[],activeId:'outline',tool:'select',selSet:[],drag:null,pan:null,
-  cam:{x:0.5,y:0.15,z:400},snap:{on:false,inc:0.025,pts:false}};
+  cam:{x:0.5,y:0.15,z:400},snap:{on:false,inc:0.025,pts:false},
+  ref:{visible:true,img:null,x:0.5,y:0.15,scale:1.0,rotation:0,opacity:0.5,open:false}};
 const U={stack:[],redo:[],MAX:60};
 const FLAG_COLS=['#e8c030','#e04020','#e050a0','#30b8e8','#8040c0','#50b850'];
 let flagCount=0;
@@ -273,14 +274,45 @@ function commitShape(tool,x0,y0,x1,y1){
 
 // RENDER
 function draw(){
-  ctx.clearRect(0,0,CW(),CH());drawGrid();
+  ctx.clearRect(0,0,CW(),CH());drawGrid();drawRefImage();
   const al=activeLy();
   for(const ly of S.layers){if(!ly.visible||ly===al)continue;drawLayer(ly,false);}
   if(al)drawLayer(al,true);
   if(['rect','tri','ellipse','capsule'].includes(S.drag?.type))drawShapePreview();
   if(S.drag?.type==='marquee')drawMarquee();
   if(S.selSet.length>1)drawTransformGizmo();
-  updatePreview();refreshJSON();buildLayerUI();updateShapeButtons();
+  updatePreview();refreshJSON();buildLayerUI();updateShapeButtons();updateRefLayerUI();
+}
+
+function drawRefImage(){
+  const r=S.ref;if(!r.img||!r.visible)return;
+  const[cx,cy]=w2s(r.x,r.y);
+  const pw=r.scale*S.cam.z;
+  const ph=pw*(r.img.height/r.img.width);
+  ctx.save();ctx.globalAlpha=r.opacity;
+  ctx.translate(cx,cy);if(r.rotation)ctx.rotate(r.rotation*Math.PI/180);
+  ctx.drawImage(r.img,-pw/2,-ph/2,pw,ph);
+  ctx.restore();
+}
+
+function updateRefLayerUI(){
+  const vis=document.getElementById('ref-vis');
+  if(vis)vis.className='ly-vis'+(S.ref.visible?' on':'');
+}
+
+function toggleRefLayer(){
+  S.ref.open=!S.ref.open;
+  document.getElementById('ref-controls').style.display=S.ref.open?'block':'none';
+  document.getElementById('ref-arrow').textContent=S.ref.open?'▼':'▶';
+}
+
+function importRefImage(e){
+  const file=e.target.files[0];if(!file)return;
+  const url=URL.createObjectURL(file);
+  const img=new Image();
+  img.onload=()=>{S.ref.img=img;draw();};
+  img.src=url;
+  e.target.value='';
 }
 
 function drawGrid(){
