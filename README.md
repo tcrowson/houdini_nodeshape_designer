@@ -5,6 +5,9 @@ A browser-based tool for the niche task of creating custom node shapes for SideF
 <p align="center">
   <a href="https://tcrowson.github.io/houdini_nodeshape_designer/">Houdini Nodeshape Designer</a>
 </p>
+<p align="center">
+  <a href="https://github.com/tcrowson/houdini_nodeshape_designer/releases/latest">⬇ Download offline bundle (.zip)</a>
+</p>
 <hr>
 <p align="center">
   <i>A superfluous tool no one ever asked for...</i>

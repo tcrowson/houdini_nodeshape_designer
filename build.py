@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
 Build a self-contained single-file HTML bundle of Houdini NodeShape Designer.
-Outputs: dist/houdini_nodeshape_designer.html
+Outputs: dist/houdini_nodeshape_designer.zip
 
 Usage:  python3 build.py
 """
 
 import os
 import re
+import zipfile
 import urllib.request
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -89,12 +90,13 @@ def build():
         f'<script>\n{js}\n</script>'
     )
 
-    out_path = os.path.join(DIST, 'houdini_nodeshape_designer.html')
-    with open(out_path, 'w', encoding='utf-8') as f:
-        f.write(html)
+    html_name = 'houdini_nodeshape_designer.html'
+    zip_path = os.path.join(DIST, 'houdini_nodeshape_designer.zip')
+    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr(html_name, html)
 
-    size_kb = os.path.getsize(out_path) / 1024
-    print(f'Bundle written: dist/houdini_nodeshape_designer.html ({size_kb:.0f} KB)')
+    size_kb = os.path.getsize(zip_path) / 1024
+    print(f'Bundle written: dist/houdini_nodeshape_designer.zip ({size_kb:.0f} KB)')
 
 if __name__ == '__main__':
     build()
