@@ -28,4 +28,4 @@ jobs:
         with:
           name: ${{ github.ref_name }}
           generate_release_notes: true
-          files: dist/houdini_nodeshape_designer.html
+          files: dist/houdini_nodeshape_designer.zip
