@@ -259,7 +259,13 @@ function commitShape(tool,x0,y0,x1,y1){
   }else if(tool==='tri'){
     pts=[{x:r4(cx),y:r4(mxY),smooth:false},{x:r4(mxX),y:r4(mnY),smooth:false},{x:r4(mnX),y:r4(mnY),smooth:false}];
   }else if(tool==='ellipse'){
-    const N=8;for(let i=0;i<N;i++){const a=i/N*Math.PI*2;pts.push({x:r4(cx+hw*Math.cos(a)),y:r4(cy+hh*Math.sin(a)),smooth:true});}
+    const K=4*(Math.sqrt(2)-1)/3;
+    pts=[
+      {x:r4(cx),    y:r4(cy-hh), smooth:true, tangent:{x:r4(3*K*hw),  y:0}},
+      {x:r4(cx+hw), y:r4(cy),    smooth:true, tangent:{x:0,            y:r4(3*K*hh)}},
+      {x:r4(cx),    y:r4(cy+hh), smooth:true, tangent:{x:r4(-3*K*hw), y:0}},
+      {x:r4(cx-hw), y:r4(cy),    smooth:true, tangent:{x:0,            y:r4(-3*K*hh)}},
+    ];
   }else if(tool==='capsule'){
     // K: bezier circle approximation constant = 4*(sqrt(2)-1)/3 ≈ 0.5523
     // Tangents are set so Catmull-Rom exactly matches a bezier circle arc.
@@ -486,9 +492,8 @@ function drawShapePreview(){
   }else if(d.type==='tri'){
     ctx.moveTo(...tf(cx,mxY));ctx.lineTo(...tf(mxX,mnY));ctx.lineTo(...tf(mnX,mnY));ctx.closePath();
   }else if(d.type==='ellipse'){
-    // approximate with bezier
-    const[scx,scy]=tf(cx,cy),[srx]=tf(cx+hw,cy),[sry]=tf(cx,cy+hh);
-    const rx=Math.abs(srx-scx),ry=Math.abs(sry-scy);
+    const[scx,scy]=tf(cx,cy);
+    const rx=hw*S.cam.z,ry=hh*S.cam.z;
     ctx.ellipse(scx,scy,rx,ry,0,0,Math.PI*2);
   }else if(d.type==='capsule'){
     // Use ctx.arc for geometrically exact semicircle preview
