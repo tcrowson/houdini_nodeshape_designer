@@ -8,6 +8,7 @@ Usage:  python3 build.py
 
 import os
 import re
+import subprocess
 import zipfile
 import urllib.request
 
@@ -18,9 +19,22 @@ def read(path):
     with open(path, encoding='utf-8') as f:
         return f.read()
 
+def get_version():
+    """Return version from GITHUB_REF_NAME env var, git tag, or None."""
+    v = os.environ.get('GITHUB_REF_NAME', '')
+    if v.startswith('v'):
+        return v.lstrip('v')
+    try:
+        v = subprocess.check_output(
+            ['git', 'describe', '--tags', '--exact-match'],
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
+        return v.lstrip('v')
+    except subprocess.CalledProcessError:
+        return None
+
 def fetch_font():
     """Fetch Barlow Black from Google Fonts and return an embedded @font-face block."""
-    # Request the CSS with a desktop UA so Google returns woff2
     url = 'https://fonts.googleapis.com/css2?family=Barlow:wght@900&display=swap'
     req = urllib.request.Request(url, headers={
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120'
@@ -31,7 +45,6 @@ def fetch_font():
         print(f'  Warning: could not fetch Google Font ({e}). Falling back to system font.')
         return None
 
-    # Find the woff2 URL inside the CSS
     woff2_url = re.search(r"url\((https://fonts\.gstatic\.com[^)]+\.woff2)\)", css)
     if not woff2_url:
         print('  Warning: could not parse font URL. Falling back to system font.')
@@ -59,9 +72,17 @@ def fetch_font():
 def build():
     os.makedirs(DIST, exist_ok=True)
 
-    html   = read(os.path.join(ROOT, 'index.html'))
-    css    = read(os.path.join(ROOT, 'src', 'style.css'))
-    js     = read(os.path.join(ROOT, 'src', 'app.js'))
+    html = read(os.path.join(ROOT, 'index.html'))
+    css  = read(os.path.join(ROOT, 'src', 'style.css'))
+    js   = read(os.path.join(ROOT, 'src', 'app.js'))
+
+    # Inject version from tag if available
+    version = get_version()
+    if version:
+        js = re.sub(r"const VERSION='[^']*'", f"const VERSION='{version}'", js)
+        print(f'Version: {version}')
+    else:
+        print('Version: using hardcoded value in app.js (no tag found)')
 
     print('Fetching Barlow font for offline embedding...')
     font_block = fetch_font()
@@ -76,7 +97,7 @@ def build():
     html = re.sub(r'<link href="https://fonts\.googleapis\.com[^>]+>\n?', '', html)
     if font_block:
         html = html.replace('</head>', font_block + '\n</head>', 1)
-        print('  Font embedded successfully.')
+        print('Font embedded successfully.')
 
     # Inline CSS
     html = html.replace(
