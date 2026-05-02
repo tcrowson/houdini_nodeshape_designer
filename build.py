@@ -72,9 +72,10 @@ def fetch_font():
 def build():
     os.makedirs(DIST, exist_ok=True)
 
-    html = read(os.path.join(ROOT, 'index.html'))
-    css  = read(os.path.join(ROOT, 'src', 'style.css'))
-    js   = read(os.path.join(ROOT, 'src', 'app.js'))
+    html     = read(os.path.join(ROOT, 'index.html'))
+    css      = read(os.path.join(ROOT, 'src', 'style.css'))
+    presets  = read(os.path.join(ROOT, 'src', 'presets.js'))
+    js       = read(os.path.join(ROOT, 'src', 'app.js'))
 
     # Inject version from tag if available
     version = get_version()
@@ -105,10 +106,10 @@ def build():
         f'<style>\n{css}\n</style>'
     )
 
-    # Inline JS
+    # Inline JS (presets first, then app)
     html = html.replace(
-        '<script src="src/app.js"></script>',
-        f'<script>\n{js}\n</script>'
+        '<script src="src/presets.js"></script>\n<script src="src/app.js"></script>',
+        f'<script>\n{presets}\n{js}\n</script>'
     )
 
     html_name = 'houdini_nodeshape_designer.html'
