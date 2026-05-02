@@ -2660,7 +2660,7 @@ const PRESETS = {
     ],
   },
 };
-const VERSION = "1.1.0";
+const VERSION = "1.1.1";
 
 // STATE
 // S.cam: {x, y} = world-space centre of viewport, z = pixels per world unit
