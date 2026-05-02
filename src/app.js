@@ -2663,6 +2663,9 @@ const PRESETS = {
 const VERSION = "1.1.0";
 
 // STATE
+// S.cam: {x, y} = world-space centre of viewport, z = pixels per world unit
+// S.drag: active interaction — type, start coords, and tool-specific payload
+// S.selSet: [{lid, idx}] — selected points identified by layer id + point index
 const S = {
   layers: [],
   activeId: "outline",
@@ -2705,7 +2708,9 @@ const pctx = pv.getContext("2d");
 const CW = () => cv.width,
   CH = () => cv.height;
 
-// COORDS (Y-up to match Houdini)
+// COORDS
+// World space: X right, Y up, origin bottom-left of node bounding box.
+// Screen space: X right, Y down (standard canvas). w2s/s2w handle the flip.
 function w2s(wx, wy) {
   return [
     CW() / 2 + (wx - S.cam.x) * S.cam.z,
@@ -2718,7 +2723,11 @@ function s2w(sx, sy) {
     S.cam.y - (sy - CH() / 2) / S.cam.z,
   ];
 }
+// 4 decimal places matches Houdini's JSON precision and avoids float noise.
 const r4 = (v) => Math.round(v * 1e4) / 1e4;
+
+// Grid snap and background (point) snap can be active simultaneously.
+// excludePts prevents a dragged point snapping to itself.
 function snapXY(wx, wy, excludePts) {
   let rx = wx,
     ry = wy;
@@ -2816,6 +2825,7 @@ function pastePts() {
 }
 
 // SPLINE
+// Catmull-Rom tangent: T_i = a * (P_{i+1} - P_{i-1}). Default a=0.5.
 function getTangent(pts, i, a = 0.5) {
   const n = pts.length,
     p0 = pts[(i - 1 + n) % n],
@@ -2823,8 +2833,9 @@ function getTangent(pts, i, a = 0.5) {
   return { x: a * (p2.x - p0.x), y: a * (p2.y - p0.y) };
 }
 
+// Bezier control points sit at anchor ± tangent/3 (the 1/3 rule for cubic Hermite→Bezier conversion).
+// Priority: explicit asymmetric handles > explicit symmetric tangent > auto Catmull-Rom.
 function crCtrl(p0, p1, p2, p3, a = 0.5) {
-  /** Uses tangentOut/tangentIn for asymmetric handles; falls back to symmetric tangent then CR. */
   const tx1 = p1.tangentOut
     ? p1.tangentOut.x
     : p1.tangent
@@ -2851,6 +2862,7 @@ function crCtrl(p0, p1, p2, p3, a = 0.5) {
   };
 }
 
+// Standard cubic Bezier evaluation via de Casteljau / expanded form.
 function bezPt(p1, c1, c2, p2, t) {
   const m = 1 - t;
   return {
@@ -2887,6 +2899,8 @@ function tracePath(ctx2, pts, closed, xf) {
   if (closed) ctx2.closePath();
 }
 
+// Converts the spline to a flat [x, y] point array for JSON export.
+// res = subdivisions per smooth segment; corner-to-corner segments emit only their endpoint.
 function bakeSpline(pts, closed, res) {
   if (pts.length < 1) return [];
   const n = pts.length,
@@ -2908,9 +2922,9 @@ function bakeSpline(pts, closed, res) {
   return out;
 }
 
-// HIT SEGMENT — samples actual bezier curves, not chord lines
+// Samples the actual bezier curves (not chord lines) to find the closest point.
+// Returns {idx, t}: idx = insertion index, t = bezier parameter at the hit.
 function hitSegment(sx, sy) {
-  /** Returns {idx, t} where idx is insertion index and t is bezier parameter at closest point. */
   const ly = activeLy();
   if (!ly || ly.type !== "poly") return null;
   const pts = ly.pts,
@@ -2958,8 +2972,9 @@ function hitSegment(sx, sy) {
   return best;
 }
 
+// Splits the bezier segment at parameter t using de Casteljau subdivision.
+// Updates the tangents of the neighbouring points so the curve shape is preserved exactly.
 function insertOnSegment(ly, hit) {
-  /** Split segment using de Casteljau, preserving curve shape exactly. */
   const n = ly.pts.length,
     segIdx = hit.idx - 1,
     t = hit.t;
@@ -3063,7 +3078,9 @@ function selBBox() {
     : { minX: mnX, minY: mnY, maxX: mxX, maxY: mxY };
 }
 
-// TRANSFORM GIZMO — corners + edge midpoints + rotation
+// Returns handle descriptors for the transform gizmo: 4 corners (scale xy),
+// 4 edge midpoints (scale one axis), and 1 rotation handle above top-centre.
+// Each handle carries its anchor point (the opposite corner/edge) for scaling.
 function gizmoHandles(bb) {
   const cx = (bb.minX + bb.maxX) / 2,
     cy = (bb.minY + bb.maxY) / 2;
@@ -3939,6 +3956,8 @@ function updatePreview() {
 // JSON
 const bakeRes = () =>
   Math.max(4, parseInt(document.getElementById("bake-res").value) || 12);
+// Assembles the Houdini node shape JSON: baked outline, flag regions (indexed 0…n),
+// port positions with wire angles, and icon bounding box corners.
 function buildJSON() {
   const name = document.getElementById("name-in").value || "custom_node",
     res = bakeRes();
